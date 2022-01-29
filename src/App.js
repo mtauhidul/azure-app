@@ -104,7 +104,7 @@ const App = () => {
 
     var config = {
       method: 'put',
-      url: `https://terraformdemostr.blob.core.windows.net/form/${filename}?sp=rac&st=2022-01-29T21:47:08Z&se=2022-01-30T05:47:08Z&spr=https&sv=2020-08-04&sr=c&sig=vhZ0FW%2FQGgwb1nP37MHhBddcZ98qQzt%2FIPKRSR96LK8%3D`,
+      url: `https://terraformdemostr.blob.core.windows.net/form/${filename}.json?sp=rac&st=2022-01-29T21:47:08Z&se=2022-01-30T05:47:08Z&spr=https&sv=2020-08-04&sr=c&sig=vhZ0FW%2FQGgwb1nP37MHhBddcZ98qQzt%2FIPKRSR96LK8%3D`,
       headers: {
         'x-ms-blob-type': 'BlockBlob',
         'Content-Type': 'application/json',
