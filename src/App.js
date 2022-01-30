@@ -1,8 +1,15 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import './App.css';
+import {
+  GET_PROJECTS_KEY,
+  GET_PROJECTS_URL,
+  POST_PROJECTS_KEY,
+  POST_PROJECTS_URL,
+} from './config';
 import Form from './Form';
 
+// List of US regions
 const regions = [
   'Central US',
   'East US',
@@ -12,6 +19,8 @@ const regions = [
   'West US 3',
 ];
 
+// List of resources
+// Resource is possible to take multiple time - name filed is not empty
 const resourceTypes = [
   {
     type: 'App service',
@@ -69,13 +78,13 @@ const App = () => {
   useEffect(() => {
     var config = {
       method: 'get',
-      url: 'https://dev.azure.com/AllITConsultants/_apis/projects?api-version=6.0',
+      url: GET_PROJECTS_URL,
       headers: {
-        Authorization:
-          'Basic OjI0dTJ6dXUzaHk1eXZxZm96c3FobWszdms3cGt2eWxiYTZzeDR4d2xhcnlhM2ZkbmVxd3E=',
+        Authorization: GET_PROJECTS_KEY,
       },
     };
 
+    // Get all projects under the organization
     const getProjects = async () => {
       await axios(config)
         .then(function (response) {
@@ -88,6 +97,7 @@ const App = () => {
     getProjects();
   }, []);
 
+  // Post all form data to server
   const postData = async (data) => {
     const today = new Date();
     const filename =
@@ -104,7 +114,7 @@ const App = () => {
 
     var config = {
       method: 'put',
-      url: `https://terraformdemostr.blob.core.windows.net/form/${filename}.json?sp=rac&st=2022-01-29T21:47:08Z&se=2022-01-30T05:47:08Z&spr=https&sv=2020-08-04&sr=c&sig=vhZ0FW%2FQGgwb1nP37MHhBddcZ98qQzt%2FIPKRSR96LK8%3D`,
+      url: `${POST_PROJECTS_URL}${filename}${POST_PROJECTS_KEY}`,
       headers: {
         'x-ms-blob-type': 'BlockBlob',
         'Content-Type': 'application/json',

@@ -22,6 +22,7 @@ const Form = ({
     console.log(errors);
   }
 
+  // This function adding any resource first time to the list
   const getResources = (idx) => {
     const value = resourceTypes[idx];
     const duplicate = resources.find(
@@ -32,6 +33,7 @@ const Form = ({
     }
   };
 
+  // This function adding any resource multiple time to the list
   const addDuplicateResource = (input) => {
     const value = input.type.replace(/[0-9]/g, '');
     const duplicates = resources.filter((resource) => {
@@ -48,6 +50,8 @@ const Form = ({
       ]);
     }
   };
+
+  // Editing name of multiple featured resources
   const handleNameEdit = (item, value) => {
     const target = resources.find((resource) => resource === item);
     const index = resources.indexOf(target);
