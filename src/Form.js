@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import RemoveIcon from './assets/remove.svg';
 
 const Form = ({
   postData,
@@ -23,8 +24,9 @@ const Form = ({
   }
 
   // This function adding any resource first time to the list
-  const getResources = (idx) => {
-    const value = resourceTypes[idx];
+  const getResources = (e) => {
+    e.preventDefault();
+    const value = resourceTypes[e.target.value];
     const duplicate = resources.find(
       (resource) => resource.type === value.type
     );
@@ -34,7 +36,8 @@ const Form = ({
   };
 
   // This function adding any resource multiple time to the list
-  const addDuplicateResource = (input) => {
+  const addDuplicateResource = (e, input) => {
+    e.preventDefault();
     const value = input.type.replace(/[0-9]/g, '');
     const duplicates = resources.filter((resource) => {
       const target = value.split(' ');
@@ -59,6 +62,13 @@ const Form = ({
     setResources(resources);
   };
 
+  // Remove any selected resources from the list
+  const removeResources = (e, item) => {
+    e.preventDefault();
+    const newList = resources.filter((resource) => resource !== item);
+    setResources(newList);
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <input
@@ -70,6 +80,9 @@ const Form = ({
       <select
         required
         {...register('Azure devops project', { required: true })}>
+        <option selected disabled>
+          Select azure devops project
+        </option>
         {projects.map((project, index) => {
           return (
             <option key={index} value={project.name}>
@@ -91,6 +104,9 @@ const Form = ({
         {...register('Owner email', { required: true, pattern: /^\S+@\S+$/i })}
       />
       <select required {...register('Azure region', { required: true })}>
+        <option selected disabled>
+          Select azure region
+        </option>
         {regions.map((region, index) => {
           return (
             <option key={index + 20} value={region}>
@@ -103,8 +119,11 @@ const Form = ({
       <select
         required
         onChange={(e) => {
-          getResources(e.target.value);
+          getResources(e);
         }}>
+        <option selected disabled>
+          Select resources
+        </option>
         {resourceTypes.map((resource, index) => {
           return (
             <option key={index + 30} value={index}>
@@ -119,6 +138,12 @@ const Form = ({
           return (
             <div key={index} id='resourceContainer'>
               <div id='resource'>
+                <img
+                  onClick={(e) => removeResources(e, resource)}
+                  src={RemoveIcon}
+                  id='RemoveIcon'
+                  alt='RemoveIcon'
+                />
                 <small>{resource.type}</small>
                 {resource.type.includes('Storage account') ||
                 resource.type.includes('Sql database Service Bus') ||
@@ -126,8 +151,8 @@ const Form = ({
                 resource.type.includes('Function app') ||
                 resource.type.includes('App service') ? (
                   <button
-                    onClick={() => {
-                      addDuplicateResource(resource);
+                    onClick={(e) => {
+                      addDuplicateResource(e, resource);
                     }}>
                     +
                   </button>

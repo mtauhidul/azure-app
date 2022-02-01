@@ -150,6 +150,28 @@ label.light {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    position: relative;
+}
+
+#RemoveIcon {
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    background-color: #53c274;
+    padding: 3px;
+    position: absolute;
+    left: 0;
+    transform: translate(-70%, -80%);
+    display: none;
+    cursor: pointer;
+}
+
+#resource:hover>#RemoveIcon {
+    display: block;
+}
+
+#RemoveIcon:hover {
+    background-color: red;
 }
 
 #resource small {
@@ -170,4 +192,8 @@ label.light {
         max-width: 480px;
     }
 
+}
+
+::placeholder {
+    color: #8997A0;
 }

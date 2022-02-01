@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import './App.css';
 import {
   GET_PROJECTS_KEY,
@@ -98,7 +99,7 @@ const App = () => {
   }, []);
 
   // Post all form data to server
-  const postData = async (data) => {
+  const postData = (data) => {
     const today = new Date();
     const filename =
       'post' +
@@ -122,17 +123,26 @@ const App = () => {
       data: data,
     };
 
-    await axios(config)
-      .then(function (response) {
-        alert(response.statusText);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    const sendData = async () => {
+      await axios(config)
+        .then(function (response) {})
+        .catch(function (error) {
+          console.log(error);
+        });
+    };
+
+    const dataSend = sendData();
+
+    toast.promise(dataSend, {
+      loading: 'Submitting data',
+      success: 'Data submitted successfully',
+      error: 'Error! Try again',
+    });
   };
 
   return (
     <div id='app'>
+      <Toaster position='top-center' reverseOrder={false} />
       <Form
         projects={projects}
         regions={regions}
