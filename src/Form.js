@@ -165,14 +165,29 @@ const Form = ({
                 resource.type.includes('Cosmos Database (sql)') ||
                 resource.type.includes('Function app') ||
                 resource.type.includes('App service') ? (
-                  <input
-                    onChange={(e) => {
-                      handleNameEdit(resource, e.target.value);
-                    }}
-                    id='nameEditor'
-                    type='text'
-                    placeholder={'Enter Name'}
-                  />
+                  resource.type.includes('Sql database Service Bus') ||
+                  resource.type.includes('Cosmos Database (sql)') ||
+                  resource.type.includes('Function app') ||
+                  resource.type.includes('App service') ? (
+                    <input
+                      required
+                      onChange={(e) => {
+                        handleNameEdit(resource, e.target.value);
+                      }}
+                      id='nameEditor'
+                      type='text'
+                      placeholder={'Enter Name*'}
+                    />
+                  ) : (
+                    <input
+                      onChange={(e) => {
+                        handleNameEdit(resource, e.target.value);
+                      }}
+                      id='nameEditor'
+                      type='text'
+                      placeholder={'Enter Name'}
+                    />
+                  )
                 ) : (
                   <div style={{ Width: '80%' }} />
                 )}
