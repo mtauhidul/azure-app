@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import ReactTooltip from 'react-tooltip';
 import RemoveIcon from './assets/remove.svg';
 
 const Form = ({
@@ -71,14 +72,17 @@ const Form = ({
 
   return (
     <form id='mainForm' onSubmit={handleSubmit(onSubmit)}>
+      <ReactTooltip />
       <h2>New infrastructure selector</h2>
       <input
+        data-tip='?'
         required
         type='text'
         placeholder='Application name'
         {...register('Application name', { required: true })}
       />
       <select
+        data-tip='?'
         required
         {...register('Azure devops project', { required: true })}>
         <option selected disabled>
@@ -93,18 +97,23 @@ const Form = ({
         })}
       </select>
       <input
+        data-tip='?'
         required
         type='text'
         placeholder='Application DNS name'
         {...register('Application DNS name', { required: true })}
       />
       <input
+        data-tip='?'
         required
         type='email'
         placeholder='Owner email'
         {...register('Owner email', { required: true, pattern: /^\S+@\S+$/i })}
       />
-      <select required {...register('Azure region', { required: true })}>
+      <select
+        data-tip='?'
+        required
+        {...register('Azure region', { required: true })}>
         <option selected disabled>
           Select azure region
         </option>
@@ -118,6 +127,7 @@ const Form = ({
       </select>
 
       <select
+        data-tip='?'
         required
         onChange={(e) => {
           getResources(e);
@@ -133,7 +143,6 @@ const Form = ({
           );
         })}
       </select>
-
       <div id='resources'>
         {resources.map((resource, index) => {
           return (
@@ -170,6 +179,7 @@ const Form = ({
                   resource.type.includes('Function app') ||
                   resource.type.includes('App service') ? (
                     <input
+                      data-tip='?'
                       required
                       onChange={(e) => {
                         handleNameEdit(resource, e.target.value);
@@ -180,6 +190,7 @@ const Form = ({
                     />
                   ) : (
                     <input
+                      data-tip='?'
                       onChange={(e) => {
                         handleNameEdit(resource, e.target.value);
                       }}
