@@ -125,7 +125,11 @@ const App = () => {
 
     const sendData = async () => {
       await axios(config)
-        .then(function (response) {})
+        .then(function (response) {
+          setTimeout(() => {
+            return window.location.reload();
+          }, 2500);
+        })
         .catch(function (error) {
           console.log(error);
         });

@@ -70,7 +70,8 @@ const Form = ({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form id='mainForm' onSubmit={handleSubmit(onSubmit)}>
+      <h2>New infrastructure selector</h2>
       <input
         required
         type='text'
