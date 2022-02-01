@@ -72,7 +72,6 @@ select {
     background-repeat: no-repeat;
     background-position-x: 100%;
     background-position-y: 5px;
-    margin-right: 2rem;
 }
 
 input[type="submit"] {
@@ -128,6 +127,21 @@ label.light {
     border-radius: 100%;
 }
 
+
+.inputBox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.inputBox img {
+    width: 18px;
+    height: 18px;
+    margin-top: -27px;
+    margin-left: 10px;
+    cursor: pointer;
+}
 
 #resources {
     display: flex;

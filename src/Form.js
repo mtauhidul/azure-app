@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import ReactTooltip from 'react-tooltip';
+import InfoIcon from './assets/info.svg';
 import RemoveIcon from './assets/remove.svg';
 
 const Form = ({
@@ -74,75 +75,89 @@ const Form = ({
     <form id='mainForm' onSubmit={handleSubmit(onSubmit)}>
       <ReactTooltip />
       <h2>New infrastructure selector</h2>
-      <input
-        data-tip='?'
-        required
-        type='text'
-        placeholder='Application name'
-        {...register('Application name', { required: true })}
-      />
-      <select
-        data-tip='?'
-        required
-        {...register('Azure devops project', { required: true })}>
-        <option selected disabled>
-          Select azure devops project
-        </option>
-        {projects.map((project, index) => {
-          return (
-            <option key={index} value={project.name}>
-              {project.name}
-            </option>
-          );
-        })}
-      </select>
-      <input
-        data-tip='?'
-        required
-        type='text'
-        placeholder='Application DNS name'
-        {...register('Application DNS name', { required: true })}
-      />
-      <input
-        data-tip='?'
-        required
-        type='email'
-        placeholder='Owner email'
-        {...register('Owner email', { required: true, pattern: /^\S+@\S+$/i })}
-      />
-      <select
-        data-tip='?'
-        required
-        {...register('Azure region', { required: true })}>
-        <option selected disabled>
-          Select azure region
-        </option>
-        {regions.map((region, index) => {
-          return (
-            <option key={index + 20} value={region}>
-              {region}
-            </option>
-          );
-        })}
-      </select>
+      <div className='inputBox'>
+        <input
+          required
+          type='text'
+          placeholder='Application name'
+          {...register('Application name', { required: true })}
+        />
+        <img data-tip='?' src={InfoIcon} alt='InfoIcon' />
+      </div>
+      <div className='inputBox'>
+        <select
+          required
+          {...register('Azure devops project', { required: true })}>
+          <option selected disabled>
+            Select azure devops project
+          </option>
+          {projects.map((project, index) => {
+            return (
+              <option key={index} value={project.name}>
+                {project.name}
+              </option>
+            );
+          })}
+        </select>
+        <img data-tip='?' src={InfoIcon} alt='InfoIcon' />
+      </div>
+      <div className='inputBox'>
+        <input
+          required
+          type='text'
+          placeholder='Application DNS name'
+          {...register('Application DNS name', { required: true })}
+        />
+        <img data-tip='?' src={InfoIcon} alt='InfoIcon' />
+      </div>
+      <div className='inputBox'>
+        <input
+          required
+          type='email'
+          placeholder='Owner email'
+          {...register('Owner email', {
+            required: true,
+            pattern: /^\S+@\S+$/i,
+          })}
+        />
+        <img data-tip='?' src={InfoIcon} alt='InfoIcon' />
+      </div>
+      <div className='inputBox'>
+        <select required {...register('Azure region', { required: true })}>
+          <option selected disabled>
+            Select azure region
+          </option>
+          {regions.map((region, index) => {
+            return (
+              <option key={index + 20} value={region}>
+                {region}
+              </option>
+            );
+          })}
+        </select>
+        <img data-tip='?' src={InfoIcon} alt='InfoIcon' />
+      </div>
 
-      <select
-        data-tip='?'
-        required
-        onChange={(e) => {
-          getResources(e);
-        }}>
-        <option selected disabled>
-          Select resources
-        </option>
-        {resourceTypes.map((resource, index) => {
-          return (
-            <option key={index + 30} value={index}>
-              {resource.type}
-            </option>
-          );
-        })}
-      </select>
+      <div className='inputBox'>
+        <select
+          required
+          onChange={(e) => {
+            getResources(e);
+          }}>
+          <option selected disabled>
+            Select resources
+          </option>
+          {resourceTypes.map((resource, index) => {
+            return (
+              <option key={index + 30} value={index}>
+                {resource.type}
+              </option>
+            );
+          })}
+        </select>
+        <img data-tip='?' src={InfoIcon} alt='InfoIcon' />
+      </div>
+
       <div id='resources'>
         {resources.map((resource, index) => {
           return (
@@ -179,7 +194,6 @@ const Form = ({
                   resource.type.includes('Function app') ||
                   resource.type.includes('App service') ? (
                     <input
-                      data-tip='?'
                       required
                       onChange={(e) => {
                         handleNameEdit(resource, e.target.value);
@@ -190,7 +204,6 @@ const Form = ({
                     />
                   ) : (
                     <input
-                      data-tip='?'
                       onChange={(e) => {
                         handleNameEdit(resource, e.target.value);
                       }}
